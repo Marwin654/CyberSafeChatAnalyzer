@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Cyber Safe Chat Analyzer</title>
+
+
+<style>
+
+    body{
+        background:#0f172a;
+        color:white;
+        font-family:Arial, sans-serif;
+        text-align:center;
+        padding-top:60px;
+    }
+
+    h1{
+        color:#38bdf8;
+        margin-bottom:30px;
+    }
+
+    textarea{
+        width:550px;
+        height:150px;
+        padding:15px;
+        border-radius:10px;
+        border:none;
+        resize:none;
+        font-size:16px;
+    }
+
+    button{
+        margin-top:20px;
+        padding:12px 24px;
+        background:#2563eb;
+        color:white;
+        border:none;
+        border-radius:8px;
+        cursor:pointer;
+        font-size:16px;
+    }
+
+    button:hover{
+        background:#1d4ed8;
+    }
+
+    .result{
+        margin-top:30px;
+        background:#1e293b;
+        padding:25px;
+        width:500px;
+        margin-left:auto;
+        margin-right:auto;
+        border-radius:12px;
+        box-shadow:0px 0px 10px rgba(0,0,0,0.3);
+    }
+
+    .safe{
+        color:#22c55e;
+        font-weight:bold;
+    }
+
+    .spam{
+        color:#ef4444;
+        font-weight:bold;
+    }
+
+    .toxic{
+        color:#f97316;
+        font-weight:bold;
+    }
+
+    .risk-high{
+        color:#ef4444;
+        font-weight:bold;
+    }
+
+    .risk-low{
+        color:#22c55e;
+        font-weight:bold;
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+
+<h1>Cyber Safe Chat Analyzer</h1>
+
+<form method="POST">
+
+    <textarea
+        name="message"
+        placeholder="Enter a message to analyze..."
+        required
+    ></textarea>
+
+    <br>
+
+    <button type="submit">
+        Analyze Message
+    </button>
+
+</form>
+
+{% if spam_prediction %}
+
+<div class="result">
+
+    <h2>Analysis Result</h2>
+
+    <p>
+        <strong>Spam Detection:</strong>
+
+        {% if spam_prediction == "spam" %}
+            <span class="spam">⚠ Spam</span>
+        {% else %}
+            <span class="safe">✅ Safe</span>
+        {% endif %}
+
+        ({{ spam_confidence }}%)
+    </p>
+
+    <p>
+        <strong>Toxicity Detection:</strong>
+
+        {% if tox_prediction == 1 %}
+            <span class="toxic">⚠ Toxic</span>
+        {% else %}
+            <span class="safe">✅ Non-Toxic</span>
+        {% endif %}
+
+        ({{ tox_confidence }}%)
+    </p>
+
+    <p>
+        <strong>Risk Level:</strong>
+
+        {% if risk == "High Risk" %}
+            <span class="risk-high">🔴 High Risk</span>
+        {% else %}
+            <span class="risk-low">🟢 Low Risk</span>
+        {% endif %}
+    </p>
+
+</div>
+
+{% endif %}
+
+
+</body>
+</html>
